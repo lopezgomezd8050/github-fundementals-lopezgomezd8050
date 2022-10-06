@@ -1,0 +1,103 @@
+#notes
+#
+#
+
+#imports
+import random
+
+#variables
+#variables are defined throught the script
+rpgclass_f = "error"
+rpgclass_s = "error"
+health = "error"
+attack = "error"
+ehealth = "error"
+eattack = "error"
+enemy = "error"
+choice = "error"
+echoice = "error"
+cont = 0 
+
+#start/setup
+print('Welcome To The RPG!')
+rpgclass_s = input("Do you want to be a Warrior, Mage, or Archer?\n(w,m,a)\n")
+
+#to catch if the user doesnt give w m or a
+while rpgclass_s not in ("w", "m", "a"):
+    rpgclass_s = input("w,m,a\n")
+
+#converts the user input to something nice
+if rpgclass_s == "w":
+    rpgclass_f = "Warrior"
+elif rpgclass_s == "m":
+  rpgclass_f = "Mage"
+elif rpgclass_s == "a":
+  rpgclass_f = "Archer"
+  
+#confirms what the user picked is what the code got
+print("You Picked " + rpgclass_f + "!")
+
+#preperation for the actual game
+health = random.randint(100, 120)
+attack = random.randint(15, 20)
+print("You have " + str(health) + " Health\nAnd have " + str(attack) + " Attack")
+cont = input("Press any key to continue")
+
+#enemy creator
+enemy = random.randint(1, 3)
+if enemy == 1: enemy = "Goblin"
+elif enemy == 2: enemy = "Slime"
+elif enemy == 3: enemy = "Skeleton"
+ehealth = random.randint(100, 120)
+eattack = random.randint(15, 20)
+
+#battle start
+print("\nAn enemy appears from the forest!\n" + enemy + ":\n"+str(ehealth) + " Health\n"+str(eattack) + " Attack\n")
+
+#battle sequence
+while (ehealth >= 0) and (health >= 0):
+  choice = input("Attack\nBlock\nHeal\nWhat do you want to do? (a,b,h)\n")
+  
+  #Your Turn
+  while choice not in ("a", "b", "h"):
+      choice = input("a,b,h\n")
+  if choice == "a":
+    ehealth = ehealth - attack
+    print("You Attack!")
+  elif choice == "b":
+    eattack = eattack * 0.8
+    print("You Block!")
+  elif choice == "h":
+   health = health + 5
+   print("You Heal!")
+  
+  #Enemy Turn
+  echoice = random.randint(1, 3)
+  if echoice == 1: echoice = "a"
+  elif echoice == 2: echoice = "b"
+  elif echoice == 3: echoice = "h"
+  if echoice == "a":
+    health = health - eattack
+    print("They Attack!")
+  elif echoice == "b":
+    attack = attack * 0.8
+    print("They Block!")
+  elif echoice == "h":
+   ehealth = ehealth + 5
+   print("They Heal!")
+
+  #changes floats to ints
+  health = int(health)
+  attack = int(attack)
+  ehealth = int(ehealth)
+  eattack = int(eattack)
+
+  #standings
+  print("\nStandings:")
+  print("Your health: " + str(health))
+  print("Your attack: " + str(attack))
+  print("\nTheir health: " + str(ehealth))
+  print("Their attack: " + str(eattack) + "\n")
+
+if ehealth <= 0: print("You WIN!")
+elif health <=0: print("You LOSE!")
