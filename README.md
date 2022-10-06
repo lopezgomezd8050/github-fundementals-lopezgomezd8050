@@ -1,3 +1,3 @@
 # Random Stuff
 
-* random assortment of things I've made
+* Random assortment of things I've made
